@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import PlacesAutocomplete from './PlacesAutocomplete';
+import * as ReactGoogleMapsApi from '@react-google-maps/api';
 
 // Mock the Google Maps API loader
 jest.mock('@react-google-maps/api', () => ({
@@ -45,8 +46,7 @@ describe('PlacesAutocomplete', () => {
     });
 
     test('displays error message when API fails to load', () => {
-        const { useJsApiLoader } = require('@react-google-maps/api');
-        useJsApiLoader.mockReturnValue({
+        jest.spyOn(ReactGoogleMapsApi, 'useJsApiLoader').mockReturnValue({
             isLoaded: false,
             loadError: new Error('API Load Error'),
         });
@@ -61,5 +61,8 @@ describe('PlacesAutocomplete', () => {
         );
         
         expect(screen.getByText(/Error loading address autocomplete/i)).toBeInTheDocument();
+        
+        // Clean up the spy
+        jest.restoreAllMocks();
     });
 });

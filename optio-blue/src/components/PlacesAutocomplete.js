@@ -24,9 +24,12 @@ const PlacesAutocomplete = ({
     const autocompleteRef = useRef(null);
     const inputRef = useRef(null);
 
+    // Check if API key exists
+    const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+    
     // Load Google Maps API
     const { isLoaded, loadError } = useJsApiLoader({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+        googleMapsApiKey: apiKey,
         libraries,
     });
 
@@ -41,10 +44,10 @@ const PlacesAutocomplete = ({
             
             if (place && place.formatted_address) {
                 onChange(place.formatted_address);
-                logEvent('PlacesAutocomplete', 'Place Selected', `Address: ${place.formatted_address}`);
+                logEvent('PlacesAutocomplete', 'Place Selected', 'Address selected via autocomplete');
             } else if (place && place.name) {
                 onChange(place.name);
-                logEvent('PlacesAutocomplete', 'Place Selected', `Name: ${place.name}`);
+                logEvent('PlacesAutocomplete', 'Place Selected', 'Place name selected via autocomplete');
             }
         }
     }, [onChange]);
@@ -61,7 +64,7 @@ const PlacesAutocomplete = ({
         }
     }, [isLoaded]);
 
-    if (loadError) {
+    if (loadError || !apiKey) {
         return (
             <TextField
                 fullWidth={fullWidth}
