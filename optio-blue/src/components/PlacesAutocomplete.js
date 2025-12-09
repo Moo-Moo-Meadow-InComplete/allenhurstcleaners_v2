@@ -27,7 +27,7 @@ const PlacesAutocomplete = ({
     // Load Google Maps API
     const { isLoaded, loadError } = useJsApiLoader({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-        libraries: libraries,
+        libraries,
     });
 
     const onLoad = useCallback((autocomplete) => {
@@ -84,6 +84,7 @@ const PlacesAutocomplete = ({
                 fullWidth={fullWidth}
                 label={label}
                 value={value}
+                onChange={(e) => onChange(e.target.value)}
                 margin={margin}
                 required={required}
                 placeholder={placeholder}
