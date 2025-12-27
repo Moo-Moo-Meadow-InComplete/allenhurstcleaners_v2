@@ -1,10 +1,13 @@
 // Dependencies
 import ReactGA from 'react-ga4';
 
+// Guard process for browser runtime
+const env = (typeof process !== 'undefined' && process.env) ? process.env : {};
+
 export const initGA = () => {
-    const googleTagId = process.env.REACT_APP_GOOGLE_TAG_ID;
+    const googleTagId = env.REACT_APP_GOOGLE_TAG_ID || '';
     if (!googleTagId) {
-        console.error('Google Tag ID is not defined in the environment variables');
+        // No ID: skip GA init to avoid runtime errors
         return;
     }
     ReactGA.initialize(googleTagId);

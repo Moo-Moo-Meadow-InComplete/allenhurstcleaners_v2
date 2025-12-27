@@ -9,6 +9,8 @@ import GmapEmbededToolBar from './GmapEmbededToolBar';
 import { logEvent } from '../../utils/Ganalytics';
 
 const FreeGmap = () => {
+    const env = (typeof process !== 'undefined' && process.env) ? process.env : {};
+    const hasApiKey = Boolean(env.REACT_APP_GOOGLE_MAPS_API_KEY);
     const mapRef = useRef(null);
     const [mode, setMode] = useState('directions');
     const [mapType, setMapType] = useState('roadmap');
@@ -43,6 +45,15 @@ const FreeGmap = () => {
             console.error('Geolocation is not supported by this browser.');
         }
     }, []);
+
+    if (!hasApiKey) {
+        return (
+            <div style={{ padding: '16px', textAlign: 'center' }}>
+                <strong>Google Maps is temporarily disabled.</strong>
+                <div>Provide REACT_APP_GOOGLE_MAPS_API_KEY to re-enable.</div>
+            </div>
+        );
+    }
 
     return (
         <>

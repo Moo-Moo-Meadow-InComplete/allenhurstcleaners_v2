@@ -30,8 +30,11 @@ const center = {
 // Libraries to be loaded with the Google Maps API
 const libraries = ['places', 'maps', 'marker'];
 
+// Env (guard against undefined process in browser)
+const env = (typeof process !== 'undefined' && process.env) ? process.env : {};
+
 // Map ID
-const mapId = process.env.REACT_APP_GOOGLE_MAPS_MAP_ID;
+const mapId = env.REACT_APP_GOOGLE_MAPS_MAP_ID || '';
 
 const Gmap = ({ id, onLoad, display }) => {
     // Map reference and state
@@ -43,13 +46,13 @@ const Gmap = ({ id, onLoad, display }) => {
 
     // Load Google Maps API
     const { isLoaded, loadError } = useJsApiLoader({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+        googleMapsApiKey: env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries: libraries,
         mapIds: [mapId],
     });
 
     // Use the custom hook to get place details
-    const { place } = usePlaceDetails(mapRef.current, process.env.REACT_APP_GOOGLE_MAPS_PLACE_ID);
+    const { place } = usePlaceDetails(mapRef.current, env.REACT_APP_GOOGLE_MAPS_PLACE_ID);
 
     // Load the map
     const handleMapLoad = useCallback((map) => {
@@ -90,7 +93,7 @@ const Gmap = ({ id, onLoad, display }) => {
                             animation: window.google.maps.Animation.DROP,
                             title: place.name,
                             icon: {
-                                url: `${process.env.PUBLIC_URL}/favicon.ico`,
+                                url: `${env.PUBLIC_URL || ''}/favicon.ico`,
                                 labelOrigin: new window.google.maps.Point(15, 65), // Adjust label position
                             },
                             label: {

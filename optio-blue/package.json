@@ -12,20 +12,19 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.3.1",
+    "react-cookie-consent": "^9.0.0",
     "react-dom": "^18.3.1",
     "react-ga4": "^2.1.0",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.26.2",
-    "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "deploy": "gh-pages -d dist",
+    "start": "rspack dev",
+    "build": "rspack build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -49,7 +48,14 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@rspack/cli": "^1.0.0",
+    "@rspack/core": "^1.0.0",
+    "@rspack/plugin-react-refresh": "^1.0.0",
+    "css-loader": "^7.1.2",
+    "dotenv": "^16.4.5",
     "eslint": "^8.57.1",
-    "gh-pages": "^6.1.1"
+    "gh-pages": "^6.1.1",
+    "react-scripts": "^0.0.0",
+    "style-loader": "^4.0.0"
   }
 }

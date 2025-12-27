@@ -1,7 +1,8 @@
 import React from 'react';
 
 const GmapEmbeded = ({ mode, mapType, searchQuery, origin, destination, width, height }) => {
-    const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+    const env = (typeof process !== 'undefined' && process.env) ? process.env : {};
+    const apiKey = env.REACT_APP_GOOGLE_MAPS_API_KEY || '';
     const defaultOrigin = 'current+location';
     const defaultDestination = 'Allenhurst+Cleaners';
     const cardinalDirection = '110';
