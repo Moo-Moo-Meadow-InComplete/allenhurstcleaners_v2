@@ -12,6 +12,9 @@ import Greviews from '../components/GoogleMaps/Paid-GoogleCloudConsole/Greviews'
 import { logPageView, logTiming, logEvent } from '../utils/Ganalytics';
 
 const Reviews = () => {
+    const env = (typeof process !== 'undefined' && process.env) ? process.env : {};
+    const hasApiKey = Boolean(env.REACT_APP_GOOGLE_MAPS_API_KEY);
+
     const [map, setMap] = useState(null);
     const mapRef = useRef(null);
 
@@ -31,6 +34,19 @@ const Reviews = () => {
         }, 1000);
     }, []);
 
+    if (!hasApiKey) {
+        return (
+            <Container>
+                <Paper elevation={3} sx={{ padding: 2, marginBottom: 2, textAlign: 'center' }}>
+                    <Typography variant="h4">Recent Reviews</Typography>
+                </Paper>
+                <Paper elevation={3} sx={{ padding: 2, marginBottom: 2, textAlign: 'center' }}>
+                    <Typography>Google Reviews 已停用：請設定 REACT_APP_GOOGLE_MAPS_API_KEY 以啟用。</Typography>
+                </Paper>
+            </Container>
+        );
+    }
+
     return (
         <>
             <Container>
@@ -42,7 +58,7 @@ const Reviews = () => {
                 <Paper elevation={3} sx={{ padding: 2, marginBottom: 2 }}>
                     {map && (
                         <Box mt={2}>
-                            <Greviews map={map} placeId={process.env.REACT_APP_GOOGLE_MAPS_PLACE_ID} />
+                            <Greviews map={map} placeId={env.REACT_APP_GOOGLE_MAPS_PLACE_ID} />
                         </Box>
                     )}
                     <Box display={'none'}>
