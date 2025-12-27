@@ -41,7 +41,7 @@ const Reviews = () => {
                     <Typography variant="h4">Recent Reviews</Typography>
                 </Paper>
                 <Paper elevation={3} sx={{ padding: 2, marginBottom: 2, textAlign: 'center' }}>
-                    <Typography>Google Reviews 已停用：請設定 REACT_APP_GOOGLE_MAPS_API_KEY 以啟用。</Typography>
+                    <Typography>Google Reviews are disabled: please set REACT_APP_GOOGLE_MAPS_API_KEY to enable them.</Typography>
                 </Paper>
             </Container>
         );
