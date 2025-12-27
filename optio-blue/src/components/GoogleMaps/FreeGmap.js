@@ -58,7 +58,7 @@ const FreeGmap = () => {
     return (
         <>
             {/* Embeded Google Maps */}
-        <GmapEmbeded
+            <GmapEmbeded
                 mode={mode}
                 mapType={mapType}
                 searchQuery={searchQuery}
